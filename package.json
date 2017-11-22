@@ -16,7 +16,7 @@
     "type": "git",
     "url": "https://github.com/linrui1994/vue-css-format.git"
   },
-  "author": "linrui",
+  "author": "steins",
   "license": "MIT",
   "dependencies": {
     "postcss": "^6.0.14",
