@@ -16,7 +16,7 @@ function isScss (str) {
 }
 
 function isLess (str) {
-  return /\.less/.test(str)
+  return /\.less$/.test(str)
 }
 
 function readDir (dir) {
@@ -95,11 +95,11 @@ function formatVueStyle (dir) {
       format(style, syntax).then(result => {
         writeFile(dir, data.replace(vueStyleReg, startTag + '\n' + result.css + '\n' + endTag))
       }).catch(err => {
-        console.error('format error! in file: ' + dir)
+        console.error('format error! in file: ' + dir, err)
       })
     }
   }).catch(err => {
-    console.error('readFile error: ' + err + dir )
+    console.error('readFile error: ' + dir, err)
   })
 }
 
@@ -127,7 +127,7 @@ function formatStyle (dir, syntax) {
       writeFile(dir, result.css)
     })
   }).catch(err => {
-    console.error('readFile error: ' + dir)
+    console.error('readFile error: ' + dir, err)
   })
 }
 
