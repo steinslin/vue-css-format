@@ -1,6 +1,6 @@
 {
   "name": "vue-css-format",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "vue-css-format is a tool that automatically format your css code, support css、less、scss and vue",
   "main": "index.js",
   "scripts": {

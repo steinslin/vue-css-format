@@ -4,6 +4,7 @@ const scss = require('postcss-scss')
 const less = require('postcss-less')
 const stylefmt = require('stylefmt')
 const path = require('path')
+const os = require('os')
 
 const files = []
 
@@ -78,9 +79,8 @@ function formatVueStyle (dir) {
   readFile(dir).then(data => {
     const vueStyleReg = /(<style[\s\S]*?>)([\s\S]*?)(<\/style>)/
     if (vueStyleReg.test(data)) {
-      const startTag = RegExp.$1
-      const endTag = RegExp.$3
-      const style = RegExp.$2.replace(/^\n+|\n+$/g, '')
+      const [startTag, endTag] = [RegExp.$1, RegExp.$3]
+      const style = RegExp.$2.replace(/^[\r\n]+|[\r\n]+$/g, '')
       const match = startTag.match(/\slang=['"](.*?)['"]/)
       let syntaxText
       let syntax
@@ -93,7 +93,7 @@ function formatVueStyle (dir) {
         syntax = scss
       }
       format(style, syntax).then(result => {
-        writeFile(dir, data.replace(vueStyleReg, startTag + '\n' + result.css + '\n' + endTag))
+        writeFile(dir, data.replace(vueStyleReg, startTag + os.EOL + result.css + os.EOL + endTag))
       }).catch(err => {
         console.error('format error! in file: ' + dir, err)
       })
