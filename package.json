@@ -21,6 +21,7 @@
   "author": "steins",
   "license": "MIT",
   "dependencies": {
+    "lv-util": "^0.1.3",
     "postcss": "^6.0.14",
     "postcss-less": "^1.1.3",
     "postcss-scss": "^1.0.2",

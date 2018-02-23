@@ -1,3 +1,4 @@
+const {promisify} = require('lv-util')
 const fs = require('fs')
 const postcss = require('postcss')
 const scss = require('postcss-scss')
@@ -20,21 +21,9 @@ function isLess (str) {
   return /\.less$/.test(str)
 }
 
-function readDir (dir) {
-  return new Promise((resolve, reject) => {
-    fs.readdir(dir, (err, list) => {
-      err ? reject(err) : resolve(list)
-    })
-  })
-}
-
-function fsStat (dir) {
-  return new Promise((resolve, reject) => {
-    fs.stat(dir, (err, stats) => {
-      err ? reject(err) : resolve(stats)
-    })
-  })
-}
+const readDir = promisify(fs.readdir)
+const fsStat = promisify(fs.stat)
+const readFile = promisify(fs.readFile)
 
 function walk (dir) {
   return readDir(dir).then(list => {
@@ -65,14 +54,6 @@ function walk (dir) {
       }).catch(console.error)
     }))
   }).catch(console.error)
-}
-
-function readFile (dir) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(dir, 'utf-8', (err, data) => {
-      err ? reject(err) : resolve(data)
-    })
-  })
 }
 
 function formatVueStyle (dir) {
